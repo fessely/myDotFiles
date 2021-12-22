@@ -1,0 +1,7 @@
+[init]
+	defaultBranch = main
+[user]
+	name = Fabien ESSELY
+	email = fabien.essely@gmail.com
+[core]
+	editor = emacs
