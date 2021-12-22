@@ -36,7 +36,7 @@
          (matched-arxiv-number (match-string 1 link)))
     (when matched-arxiv-number
       (message "Going to arXiv: %s" matched-arxiv-number)
-      (arxiv-get-pdf-add-bibtex-entry matched-arxiv-number fabien/main-bib-library fabien/main-pdfs-library-path))))
+      (arxiv-get-pdf-add-bibtex-entry matched-arxiv-number bibtex-completion-bibliography bibtex-completion-library-path))))
 
 (map! (:after elfeed
        (:map elfeed-search-mode-map
@@ -44,7 +44,7 @@
        (:map elfeed-show-mode-map
         :desc "Fetch arXiv paper to the local library" "a" #'fabien/elfeed-entry-to-arxiv)))
 
-(setq elfeed-search-print-entry-function #'my-search-print-fn)
+;;(setq elfeed-search-print-entry-function #'my-search-print-fn)
   (setq elfeed-search-date-format '("%y-%m-%d" 10 :left))
   (setq elfeed-search-title-max-width 110)
   (setq my-arxiv-templates "http://export.arxiv.org/api/query?search_query=cat:%s&start=0&max_results=%d&sortBy=submittedDate&sortOrder=descending")

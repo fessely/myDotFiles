@@ -89,11 +89,12 @@
       bibtex-completion-notes-path "~/Groot/Notes"
       bibtex-completion-pdf-open-function  (lambda (fpath)
                                              (call-process "open" nil 0 nil fpath)))
-(use-package! elfeed
-  :config
-  (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-  (load! "elfeed-config.el")
 
+(setq elfeed-feeds '("http://eprint.iacr.org/rss/atom.xml"))
+(use-package! elfeed
+  ;;:config
+  ;;(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+  ;;(load! "elfeed-config.el")
 )
 
 

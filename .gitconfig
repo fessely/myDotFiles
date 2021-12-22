@@ -1,7 +1,12 @@
 [init]
 	defaultBranch = main
 [user]
-	name = Fabien ESSELY
+	name = fessely
 	email = fabien.essely@gmail.com
 [core]
 	editor = emacs
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
