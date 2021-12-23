@@ -57,14 +57,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
-;; TODO put in place a mechanism to save agenda file between session of emacs
-;; the file contains only project files, which are added manually
-;; Groot Agenda is added here and the daily too
-;; define a strategy to select the correct dailies. A good one could be from today to one month later
-;; ALGO
-;; Get current date
-;; (format-time-string "%Y-%m-%d.org")
+(load! "search.el")
 
 (require 'org)
 (after! org
@@ -81,69 +74,14 @@
     (org-agenda nil "a"))
   )
 
-(use-package! citar
-  :when (featurep! :completion vertico))
-
-(setq bibtex-completion-bibliography "~/Groot/Library/reference.bib" ; My bibliography PDF location
-      bibtex-completion-library-path "~/Documents/allMyPDFs/" ; My PDF lib location
-      bibtex-completion-notes-path "~/Groot/Notes"
-      bibtex-completion-pdf-open-function  (lambda (fpath)
-                                             (call-process "open" nil 0 nil fpath)))
-
-(setq elfeed-feeds '("http://eprint.iacr.org/rss/atom.xml"))
-(use-package! elfeed
-  ;;:config
-  ;;(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-  ;;(load! "elfeed-config.el")
-)
-
-
-
 (setq org-roam-v2-ack t)
 (setq org-roam-dailies-directory "dailies")
 
 (require 'org-roam)
 (after! org-roam
-  (defun fabien/org-roam-capture-inbox ()
-  (interactive)
-  (org-roam-capture- :node (org-roam-node-create)
-                     :templates '(("i" "inbox" plain "* %?"
-                                   :if-new (file+head "Inbox.org" "#+title: Inbox\n")
-                                   )
-                                  )
-                     )
-  )
-
-  (defun org-roam-node-insert-immediate (arg &rest args)
-    (interactive "P")
-    (let ((args (cons arg args))
-          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                    '(:immediate-finish t)))))
-      (apply #'org-roam-node-insert args)))
-
   (load! "agenda-and-roam.el")
-
-  (fabien/update-agenda-files-with-dailies)
-
-)
-
-
-
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-
+  )
 
 (setq org-refile-targets '(("~/Groot/weekly.org" :maxlevel . 3)
                            (nil :maxlevel . 3)
                            (org-agenda-files :maxlevel . 3)))
-
-(load! "search.el")

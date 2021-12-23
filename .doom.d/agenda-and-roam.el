@@ -11,16 +11,32 @@
   (let ((monday-str (org-read-date nil nil which)))
     (org-roam-node-find nil
      (concat "Week of " monday-str)) nil nil t))
-
-(defun fabien/org-roam-weekly-this ()
+;; end https://github.com/gcoladon
+;;
+(defun fabien/org-roam-current-weekly ()
   "Find the weekly-file for this week."
   (interactive)
-  (if (equal (format-time-string "%a" (current-time)) "Mon")
-      (fabien/org-roam-find-weekly "+0")
-  (fabien/org-roam-find-weekly "-mon")))
-;; end https://github.com/gcoladon
+  (fabien/org-roam-find-weekly (if (string-equal (format-time-string "%A") "Monday") "+0" "-mon"))
+  )
 
-  (defun fabien/update-agenda-files-with-dailies ()
+
+(defun fabien/org-roam-refile-to-weekly (start end)
+  (interactive "r")
+  ;; destination file
+
+  (if (equal (format-time-string "%a" (current-time)) "Mon")
+      (setq weekly-file "+0")
+    (setq weekly-file "-mon"))
+
+  (setq weekly-file (if (string-equal (format-time-string "%A") "Monday") "+0" "-mon"))
+
+  (setq weekly-file (org-read-date nil nil weekly-file))
+  (setq weekly-file (concat "Week of " weekly-file ".org"))
+  (org-refile-copy )
+  )
+
+
+(defun fabien/update-agenda-files-with-dailies ()
     (interactive)
     ;;remove daily from agenda files
     (setq org-agenda-files
