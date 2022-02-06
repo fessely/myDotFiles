@@ -72,5 +72,5 @@
 (package! org-noter)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! org-roam-bibtex)
-(package! elfeed)
-(package! elfeed-score)
+;;(package! elfeed)
+;;(package! elfeed-score)

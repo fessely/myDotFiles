@@ -40,7 +40,7 @@
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
-(set-face-attribute 'default nil :font "Fira Code" :height 140 :weight 'light)
+(set-face-attribute 'default nil :font "Fira Code" :height 160 :weight 'light)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -66,12 +66,12 @@
 ;; Get current date
 ;; (format-time-string "%Y-%m-%d.org")
 
+
 (require 'org)
 (after! org
   (setq org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
   (setq org-agenda-sticky t)
   (setq org-ditaa-jar-path "~/Groot/CodeLibrary/Java/ditaa0_9/ditaa0_9.jar")
-
   (load! "pomodoro.el")
 
   (defun fabien/display-agenda ()
@@ -79,71 +79,17 @@
     (org-agenda nil "t")
     (split-window-right)
     (org-agenda nil "a"))
+
+
+
   )
-
-(use-package! citar
-  :when (featurep! :completion vertico))
-
-(setq bibtex-completion-bibliography "~/Groot/Library/reference.bib" ; My bibliography PDF location
-      bibtex-completion-library-path "~/Documents/allMyPDFs/" ; My PDF lib location
-      bibtex-completion-notes-path "~/Groot/Notes"
-      bibtex-completion-pdf-open-function  (lambda (fpath)
-                                             (call-process "open" nil 0 nil fpath)))
-
-(setq elfeed-feeds '("http://eprint.iacr.org/rss/atom.xml"))
-(use-package! elfeed
-  ;;:config
-  ;;(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-  ;;(load! "elfeed-config.el")
-)
-
-
 
 (setq org-roam-v2-ack t)
 (setq org-roam-dailies-directory "dailies")
 
 (require 'org-roam)
 (after! org-roam
-  (defun fabien/org-roam-capture-inbox ()
-  (interactive)
-  (org-roam-capture- :node (org-roam-node-create)
-                     :templates '(("i" "inbox" plain "* %?"
-                                   :if-new (file+head "Inbox.org" "#+title: Inbox\n")
-                                   )
-                                  )
-                     )
-  )
-
-  (defun org-roam-node-insert-immediate (arg &rest args)
-    (interactive "P")
-    (let ((args (cons arg args))
-          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                    '(:immediate-finish t)))))
-      (apply #'org-roam-node-insert args)))
-
+  (org-roam-db-autosync-enable)
+  (load! "gtd.el")
   (load! "agenda-and-roam.el")
-
-  (fabien/update-agenda-files-with-dailies)
-
 )
-
-
-
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-
-
-(setq org-refile-targets '(("~/Groot/weekly.org" :maxlevel . 3)
-                           (nil :maxlevel . 3)
-                           (org-agenda-files :maxlevel . 3)))
-
-(load! "search.el")
