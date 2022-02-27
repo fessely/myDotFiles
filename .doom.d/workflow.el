@@ -1,0 +1,10 @@
+(defun fe/org-roam-tag-as-deck-magic ()
+  (interactive)
+  (org-roam-tag-add (list "deck" "magic"))
+
+(defun fe/org-roam-tag-as-format-magic (format)
+  (interactive)
+   (let ((completion-ignore-case  t))
+     (list (completing-read "Choose: " '("Standard" "Alchemy" "Historic" "Pioneer" "Modern" "Legacy" "Pauper") nil t))))
+       (org-roam-tag-add (list format))
+  )
