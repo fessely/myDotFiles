@@ -1,3 +1,4 @@
 \.git
 LICENSE
 .emacs.default
+guix_manifest
