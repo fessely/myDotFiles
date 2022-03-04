@@ -125,8 +125,10 @@ fi
 # export PATH=$HOME/.emacs.d/bin:$PATH
 # export PATH=$HOME/.local/bin:$PATH
 
-function gactivate(){
-    export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u on ${1} @\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
+function load_guix(){
+
+    arrIN=(${1//// })
+    export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u on ${arrIN[${#arrIN[@]}-1]} @\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
     GUIX_PROFILE="/home/fabien/${1}"
     export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
     . "$GUIX_PROFILE/etc/profile"
@@ -134,16 +136,18 @@ function gactivate(){
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/fabien/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/fabien/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/fabien/miniconda3/etc/profile.d/conda.sh"
+function load_conda(){
+    __conda_setup="$('/home/fabien/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-        export PATH="/home/fabien/miniconda3/bin:$PATH"
+        if [ -f "/home/fabien/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/home/fabien/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/home/fabien/miniconda3/bin:$PATH"
+        fi
     fi
-fi
-unset __conda_setup
+    unset __conda_setup
+}
 # <<< conda initialize <<<
 

@@ -28,6 +28,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
+       eshell
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
