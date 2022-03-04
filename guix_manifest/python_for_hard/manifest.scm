@@ -5,7 +5,8 @@
 ;; See the "Replicating Guix" section in the manual.
 
 (specifications->manifest
-  (list "python-tqdm"
+  (list "python-selenium"
+        "python-tqdm"
         "python-scikit-image"
         "python-scikit-learn"
         "python-scipy"

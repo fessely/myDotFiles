@@ -5,4 +5,7 @@
 ;; See the "Replicating Guix" section in the manual.
 
 (specifications->manifest
-  (list "font-fira-code" "stow" "emacs-next"))
+  (list "recutils"
+        "font-fira-code"
+        "stow"
+        "emacs-next"))
