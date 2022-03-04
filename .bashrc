@@ -130,10 +130,7 @@ function load_guix(){
     arrIN=(${1//// })
     export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u on ${arrIN[${#arrIN[@]}-1]} @\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
 
-    if [ ${#arrIN[@]} -eq 1 ]
-    then
-        GUIX_PROFILE="/home/fabien/${1}"
-    fi
+    GUIX_PROFILE="/home/fabien/${1}"
 
     if [ ${#arrIN[@]} -eq 2 ]
     then
@@ -143,6 +140,7 @@ function load_guix(){
     export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale
     . "$GUIX_PROFILE/etc/profile"
 }
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
